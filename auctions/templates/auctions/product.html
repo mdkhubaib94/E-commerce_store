@@ -1,0 +1,125 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-md p-6 md:p-10 flex flex-col md:flex-row gap-10">
+    
+    <!-- Left: Product Image -->
+    <div class="flex-shrink-0 w-full md:w-1/2">
+        <img src="{{ listing.img }}" alt="{{ listing.title }}" 
+             class="w-full h-80 object-cover rounded-xl shadow-md">
+    </div>
+    
+    <!-- Right: Product Info -->
+    <div class="flex-1 space-y-4">
+        
+        <!-- Auction Status -->
+        {% if not listing.active %}
+            {% if user == listing.winner %}
+                <div class="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-lg font-semibold">
+                    🎉 You have won this auction!
+                </div>
+            {% else %}
+                <div class="bg-rose-100 text-rose-700 px-4 py-2 rounded-lg font-semibold">
+                    ❌ This auction is closed.
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        <!-- Title & Description -->
+        <h2 class="text-3xl font-bold text-slate-900">{{ listing.title }}</h2>
+        <p class="text-slate-600">{{ listing.desc }}</p>
+        
+        <!-- Meta Info -->
+        <p class="text-sm text-slate-500"><strong>Category:</strong> {{ listing.category.name }}</p>
+        <p class="text-sm text-slate-500"><strong>Item No:</strong> {{ listing.item_no }}</p>
+        
+        <!-- Bidding Info -->
+        <div class="border-t border-slate-200 pt-4">
+            <p class="text-slate-700"><strong>Original Bid:</strong> ₹{{ starting_bid }}</p>
+            <p class="text-slate-900 font-semibold text-lg"><strong>Current Bid:</strong> ₹{{ current_bid }}</p>
+        </div>
+        
+        <!-- Place Bid -->
+        {% if user.is_authenticated %}
+            {% if listing.active %}
+                <form action="{% url 'place_bid' listing.item_no %}" method="POST" class="space-y-3 mt-4">
+                    {% csrf_token %}
+                    <label for="bid" class="block text-sm font-medium text-slate-700">Enter your bid:</label>
+                    <input type="number" name="bid" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-indigo-700 transition">
+                        Place Bid
+                    </button>
+                </form>
+            {% else %}
+                <p class="text-slate-500 mt-2">This auction is closed.</p>
+            {% endif %}
+            
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mt-2 text-sm px-4 py-2 rounded-lg
+                        {% if 'error' in message.tags %} bg-rose-100 text-rose-700 
+                        {% elif 'success' in message.tags %} bg-emerald-100 text-emerald-700 
+                        {% else %} bg-slate-100 text-slate-700 {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Watchlist -->
+            <form action="{% url 'toggle_watchlist' listing.item_no %}" method="POST" class="mt-4">
+                {% csrf_token %}
+                {% if in_watchlist %}
+                    <button type="submit" class="w-full bg-rose-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-rose-600 transition">
+                        Remove from Watchlist
+                    </button>
+                {% else %}
+                    <button type="submit" class="w-full bg-emerald-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-emerald-700 transition">
+                        Add to Watchlist
+                    </button>
+                {% endif %}
+            </form>
+            
+            <!-- Close Auction (Owner only) -->
+            {% if user == listing.user %}
+                <form action="{% url 'close_auction' listing.item_no %}" method="POST" class="mt-4">
+                    {% csrf_token %}
+                    {% if listing.active %}
+                        <button type="submit" class="w-full bg-slate-800 text-white px-4 py-2 rounded-full font-semibold hover:bg-slate-900 transition">
+                            Close Auction
+                        </button>
+                    {% endif %}
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- Comments Section -->
+<div class="max-w-5xl mx-auto mt-12 bg-white rounded-2xl shadow-md p-6">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Comments</h2>
+    
+    {% if user.is_authenticated %}
+        <form method="POST" enctype="multipart/form-data" class="space-y-3 mb-6">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-indigo-700 transition">
+                Add Comment
+            </button>
+        </form>
+    {% endif %}
+    
+    <div class="space-y-3">
+        {% for co in comments %}
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2">
+                <strong class="text-slate-900">{{ co.commenter }}</strong>
+                <p class="text-slate-700">{{ co.comment }}</p>
+            </div>
+        {% empty %}
+            <p class="text-slate-600"><strong>No comments.</strong></p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

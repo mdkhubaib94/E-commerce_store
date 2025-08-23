@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Khubay{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans">
+    
+    <!-- Navbar -->
+    <header class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Brand -->
+        <h1 class="text-2xl font-bold text-indigo-600 tracking-tight" style="font-family: 'Poppins', sans-serif;">
+          Khubay
+        </h1>
+
+
+
+        <!-- Nav -->
+        <nav>
+          <ul class="flex gap-6 items-center text-sm font-medium">
+             <li>
+              <a href="{% url 'categories' %}" class="hover:text-indigo-600 transition">Categories</a>
+            </li>
+            <li>
+              <a href="{% url 'index' %}" class="hover:text-indigo-600 transition">Listings</a>
+            </li>
+
+            {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'watchlist' %}" class="hover:text-indigo-600 transition">Watchlist</a>
+              </li>
+              <li>
+                <a href="{% url 'create' %}" class="hover:text-indigo-600 transition">Create Listing</a>
+              </li>
+              <li>
+                <a href="{% url 'logout' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-full shadow hover:bg-indigo-700 transition">
+                  Log Out
+                </a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{% url 'login' %}" class="hover:text-indigo-600 transition">Log In</a>
+              </li>
+              <li>
+                <a href="{% url 'register' %}" class="bg-emerald-600 text-white px-4 py-2 rounded-full shadow hover:bg-emerald-700 transition">
+                  Register
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+     {% if not user.is_authenticated %}
+    <section class="relative bg-gradient-to-r from-indigo-600 to-emerald-600 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-between">
+        <div class="space-y-6">
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight">Discover & Bid on Exclusive Listings</h2>
+          <p class="text-lg text-slate-100 max-w-lg">
+            Join Khubay and explore premium auctions. Bid, win, and grow your collection with confidence.
+          </p>
+          <div class="flex gap-4">
+            <a href="{% url 'index' %}" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold shadow hover:shadow-lg transition">
+              Browse Listings
+            </a>
+            
+              <a href="{% url 'register' %}" class="bg-slate-900 text-white px-6 py-3 rounded-full font-semibold shadow hover:shadow-lg transition">
+                Get Started
+              </a>
+          </div>
+        </div>
+        <div class="mt-12 md:mt-0">
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Body Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+      <!-- Django Messages -->
+      {% if messages %}
+        <div class="space-y-3 mb-6">
+          {% for message in messages %}
+            <div class="
+              px-4 py-3 rounded-xl text-sm font-medium shadow
+              {% if message.tags == 'success' %}
+                bg-emerald-100 text-emerald-800 border border-emerald-300
+              {% elif message.tags == 'error' %}
+                bg-rose-100 text-rose-800 border border-rose-300
+              {% elif message.tags == 'warning' %}
+                bg-amber-100 text-amber-800 border border-amber-300
+              {% else %}
+                bg-slate-100 text-slate-800 border border-slate-300
+              {% endif %}
+            ">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+              <!-- Auth Status -->
+        <div class="hidden md:block text-sm text-slate-600">
+          {% if user.is_authenticated %}
+            Signed in as <strong class="text-slate-900">{{ user.username }}</strong>
+          {% endif %}
+        </div>
+        <br>
+
+      {% block body %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 mt-16 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+        <p>&copy; 2025 Khubay. All rights reserved.</p>
+        <p class="mt-4 md:mt-0">Built with ❤️ for premium auctions</p>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>
