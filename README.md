@@ -22,11 +22,7 @@ A **full-stack Django E-commerce Store** offering a complete online shopping exp
 - **Checkout & Order Flow**: User order submission, confirmation, and status tracking.
 - **Order Management**: Backend support for viewing, processing, and updating orders.
 
----
 
-##  Live Demo (Optional)
-
-> _Provide your deployment URL here (e.g., Heroku, PythonAnywhere, Render) so recruiters can explore the app interactively._
 
 ---
 
