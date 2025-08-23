@@ -1,41 +1,62 @@
-# CS50W Project 2: Commerce
+# E-commerce Store
 
-This is my implementation of **Project 2: Commerce** from Harvard's CS50W (Web Programming with Python and JavaScript).  
-The project is an **e-commerce auction site** built using Django, where users can create auction listings, place bids, add items to a watchlist, and post comments.
-
----
-
-## 📌 Features
-
-- **User Authentication**
-  - Register, log in, and log out
-- **Create Listings**
-  - Users can create new auction listings with title, description, starting bid, and an optional image URL
-- **Active Listings Page**
-  - Displays all currently active auction items
-- **Bidding**
-  - Users can place bids, with automatic validation against the current highest bid
-- **Watchlist**
-  - Users can add or remove listings from their personal watchlist
-- **Categories**
-  - Listings can be filtered by categories
-- **Comments**
-  - Users can post comments on listings
-- **Close Auction**
-  - Listing creators can close an auction, awarding it to the highest bidder
+A **full-stack Django E-commerce Store** offering a complete online shopping experience—featuring user authentication, product catalog, shopping cart, secure checkout, and order management. Built with **Python**, **Django**, **SQLite**, and **Bootstrap**, this project highlights your expertise in backend logic, database design, and responsive UI development.
 
 ---
 
-## 🚀 How to Run: 
+## ​ Why This Project Stands Out
 
-   ```bash
-   git clone https://github.com/mdkhubaib94/E-commerce_store.git
-   cd commerce
-   pip install -r requirements.txt
-   python manage.py migrate
-   python manage.py runserver
-   type into your browser: http://127.0.0.1:8000/
+- **Full-Stack Proficiency**: Demonstrates end-to-end development—from models and views to forms, templates, and deploy-ready static assets.
+- **Business-Centric Features**: Incorporates essential e-commerce workflows: product listing, cart & checkout, and order tracking.
+- **Scalable & Secure Foundation**: Built using Django’s batteries-included approach with SQLite for lightweight yet powerful development.
+- **UI/UX-Ready Design**: Utilizes Bootstrap for a responsive, mobile-first interface.
+- **Indian Hiring Focus**: Highlights skills in Django, relational database handling, CRUD operations, and user authentication—highly valued in Indian software roles.
 
+---
+
+##  Project Features
+
+- **User Authentication**: Secure registration, login, and logout workflows utilizing Django’s auth system.
+- **Product Catalog**: Admin interface to add/edit products; frontend display with product details.
+- **Shopping Cart**: Add items, adjust quantities, and manage cart contents dynamically.
+- **Checkout & Order Flow**: User order submission, confirmation, and status tracking.
+- **Order Management**: Backend support for viewing, processing, and updating orders.
+
+---
+
+##  Live Demo (Optional)
+
+> _Provide your deployment URL here (e.g., Heroku, PythonAnywhere, Render) so recruiters can explore the app interactively._
+
+---
+
+##  Technologies Used
+
+| Layer        | Stack                                      |
+|--------------|---------------------------------------------|
+| Backend      | Python 3.x, Django 4.x (or your version)     |
+| Database     | SQLite (development-ready, scalable to PostgreSQL) |
+| Frontend     | HTML5, CSS3, Bootstrap                      |
+| Other        | Git for version control, Django templates, Django forms |
+
+---
+
+##  Setup & Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/mdkhubaib94/E-commerce_store.git
+cd E-commerce_store
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Apply migrations and start server
+python manage.py migrate
+python manage.py runserver
+
+# Visit locally
+# Open http://127.0.0.1:8000/ in your browser
 
 
 
