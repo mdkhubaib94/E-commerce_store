@@ -29,8 +29,8 @@ The project is an **e-commerce auction site** built using Django, where users ca
 ## 🚀 How to Run: 
 
    ```bash
-   git clone https://github.com/<your-username>/cs50w-project2-commerce.git
-   cd cs50w-project2-commerce
+   git clone https://github.com/mdkhubaib94/E-commerce_store.git
+   cd commerce
    pip install -r requirements.txt
    python manage.py migrate
    python manage.py runserver
