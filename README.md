@@ -1,16 +1,15 @@
 # E-commerce Store
 
-A **full-stack Django E-commerce Store** offering a complete online shopping experience—featuring user authentication, product catalog, shopping cart, secure checkout, and order management. Built with **Python**, **Django**, **SQLite**, and **Bootstrap**, this project highlights your expertise in backend logic, database design, and responsive UI development.
+A **full-stack Django E-commerce Store** offering a complete online shopping experience—featuring user authentication, product catalog and order management. Built with **Python**, **Django**, **SQLite**, and **Bootstrap**, this project highlights  expertise in backend logic, database design, and responsive UI development.
 
 ---
 
 ## ​ Why This Project Stands Out
 
 - **Full-Stack Proficiency**: Demonstrates end-to-end development—from models and views to forms, templates, and deploy-ready static assets.
-- **Business-Centric Features**: Incorporates essential e-commerce workflows: product listing, cart & checkout, and order tracking.
+- **Business-Centric Features**: Incorporates essential e-commerce workflows.
 - **Scalable & Secure Foundation**: Built using Django’s batteries-included approach with SQLite for lightweight yet powerful development.
 - **UI/UX-Ready Design**: Utilizes Bootstrap for a responsive, mobile-first interface.
-- **Indian Hiring Focus**: Highlights skills in Django, relational database handling, CRUD operations, and user authentication—highly valued in Indian software roles.
 
 ---
 
@@ -18,8 +17,6 @@ A **full-stack Django E-commerce Store** offering a complete online shopping exp
 
 - **User Authentication**: Secure registration, login, and logout workflows utilizing Django’s auth system.
 - **Product Catalog**: Admin interface to add/edit products; frontend display with product details.
-- **Shopping Cart**: Add items, adjust quantities, and manage cart contents dynamically.
-- **Checkout & Order Flow**: User order submission, confirmation, and status tracking.
 - **Order Management**: Backend support for viewing, processing, and updating orders.
 
 
@@ -32,7 +29,7 @@ A **full-stack Django E-commerce Store** offering a complete online shopping exp
 |--------------|---------------------------------------------|
 | Backend      | Python 3.x, Django 4.x (or your version)     |
 | Database     | SQLite (development-ready, scalable to PostgreSQL) |
-| Frontend     | HTML5, CSS3, Bootstrap                      |
+| Frontend     | HTML5, CSS3, Bootstrap, Tailwind                      |
 | Other        | Git for version control, Django templates, Django forms |
 
 ---
