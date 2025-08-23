@@ -27,7 +27,7 @@ A **full-stack Django E-commerce Store** offering a complete online shopping exp
 
 | Layer        | Stack                                      |
 |--------------|---------------------------------------------|
-| Backend      | Python 3.x, Django 4.x (or your version)     |
+| Backend      | Python 3.x, Django 4.x     |
 | Database     | SQLite (development-ready, scalable to PostgreSQL) |
 | Frontend     | HTML5, CSS3, Bootstrap, Tailwind                      |
 | Other        | Git for version control, Django templates, Django forms |
