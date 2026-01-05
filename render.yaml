@@ -1,6 +1,7 @@
 services:
   - type: web
     name: bizniss-bazaar
+    plan: free
     env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn commerce.wsgi:application"
