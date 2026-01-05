@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h2 class="text-3xl font-bold text-slate-900 mb-8">Available Categories</h2>
+
+{% if categories %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for category in categories %}
+      <a href="{% url 'ctgpage' category.name %}" 
+         class="group block p-6 rounded-2xl bg-white shadow-sm border border-slate-200 hover:shadow-lg hover:border-indigo-500 transition">
+        
+       
+        
+        <!-- Category Name -->
+        <h3 class="text-lg font-semibold text-slate-900 group-hover:text-indigo-600 transition">
+          {{ category.name }}
+        </h3>
+        
+        <!-- Subtitle -->
+        <p class="text-sm text-slate-500 mt-2">
+          Explore all active listings in {{ category.name }}
+        </p>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-slate-600">No categories available.</p>
+{% endif %}
+
+{% endblock %}

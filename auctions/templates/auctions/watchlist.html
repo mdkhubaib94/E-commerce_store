@@ -1,0 +1,61 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="max-w-5xl mx-auto mt-10">
+    <h2 class="text-3xl font-bold text-slate-900 mb-8 text-left">Your Watchlist</h2>
+
+    {% if listings %}
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for listing in listings %}
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition relative">
+                    
+                    <!-- Image -->
+                    <img src="{{ listing.img }}" alt="{{ listing.title }}" class="w-full h-48 object-cover">
+
+                    <!-- Content -->
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-slate-900 mb-2">{{ listing.title }}</h3>
+                        <p class="text-slate-600 text-sm mb-4">{{ listing.desc|truncatechars:100 }}</p>
+
+                         <!-- Status -->
+                        {% if listing.active %}
+                             <p class="text-sm font-medium text-emerald-600 mb-2">● ACTIVE</p>
+                        {% else %}
+                            <p class="text-sm font-medium text-rose-600 mb-2">● CLOSED</p>
+                        {% endif %}
+
+                        <p class="text-slate-700 text-sm">
+                            <strong>Starting Bid:</strong> ₹{{ listing.start_bid }}
+                        </p>
+                        <p class="text-slate-700 text-sm mb-4">
+                            <strong>Current Bid:</strong> ₹{{ listing.cur_bid }}
+                        </p>
+
+                        <!-- Actions -->
+                        <div class="flex items-center justify-between">
+                            <a href="{% url 'product' listing.item_no %}" 
+                               class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-full transition">
+                                View Listing
+                            </a>
+
+                            {% if user.is_authenticated %}
+                                <form action="{% url 'toggle_watchlist' item_no=listing.item_no %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" 
+                                            class="bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold px-4 py-2 rounded-full transition">
+                                        Remove
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-slate-600 mt-8">No items in your watchlist.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

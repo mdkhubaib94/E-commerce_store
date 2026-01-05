@@ -1,0 +1,80 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h2 class="text-3xl font-bold text-slate-900 mb-8">Listings</h2>
+
+{% if listings %}
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {% for listing in listings %}
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 flex flex-col">
+        
+        <!-- Image -->
+        <img src="{{ listing.img }}" alt="{{ listing.title }}" class="w-full h-48 object-cover rounded-xl mb-4">
+        
+        <!-- Title & Description -->
+        <h3 class="text-xl font-semibold text-slate-900 mb-2">{{ listing.title }}</h3>
+        <p class="text-slate-600 text-sm mb-4">{{ listing.desc|truncatechars:100 }}</p>
+        
+        <!-- Status -->
+        {% if listing.active %}
+          <p class="text-sm font-medium text-emerald-600 mb-2">● ACTIVE</p>
+        {% else %}
+          <p class="text-sm font-medium text-rose-600 mb-2">● CLOSED</p>
+        {% endif %}
+        
+        <!-- Current Bid -->
+        {% if listing.cur_bid %}
+          <p class="text-sm text-slate-700 mb-4">
+            <span class="font-semibold">Current Bid:</span> ₹{{ listing.cur_bid }}
+          </p>
+        {% else %}
+          <p class="text-sm text-slate-500 mb-4">No bids yet</p>
+        {% endif %}
+        
+        <!-- Actions -->
+        <div class="mt-auto flex flex-col gap-3">
+          <a href="{% url 'product' listing.item_no %}" 
+             class="bg-indigo-600 text-white text-center px-4 py-2 rounded-full font-medium hover:bg-indigo-700 transition">
+            View Listing
+          </a>
+
+          {% if user.is_authenticated %}
+            <form action="{% url 'toggle_watchlist' listing.item_no %}" method="POST" class="w-full">
+              {% csrf_token %}
+              {% if listing.item_no in watchlist_items %}
+              <div class="flex justify-center">
+                <button type="submit" 
+                        class="flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full text-sm
+                              bg-rose-100 text-rose-700 hover:bg-rose-200 transition">
+                <!-- Bookmark icon filled -->
+                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M6 2a2 2 0 0 0-2 2v18l8-4 8 4V4a2 2 0 0 0-2-2H6z"/>
+                  </svg>
+                  Remove from Watchlist
+                  </button>
+                  </div>
+              {% else %}
+              <div class="flex justify-center">
+                <button type="submit" 
+                        class="flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full text-sm
+                               bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition ">
+                  <!-- Bookmark icon outline -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
+                  </svg>
+                  Add to Watchlist
+                </button>
+                </div>
+              {% endif %}
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-slate-600">No listings found.</p>
+{% endif %}
+
+{% endblock %}

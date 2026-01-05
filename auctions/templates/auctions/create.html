@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8 mt-12">
+    <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Create New Listing</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Render all 3 forms -->
+        <div class="space-y-4">
+            {{ form1.as_p }}
+            {{ form2.as_p }}
+            {{ form3.as_p }}
+        </div>
+
+        <!-- Submit -->
+        <button 
+            type="submit"
+            class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:bg-indigo-700 transition">
+            Add Product
+        </button>
+    </form>
+</div>
+
+{% endblock %}

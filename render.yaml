@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: bizniss-bazaar
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn commerce.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bizniss-bazaar-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+
+databases:
+  - name: bizniss-bazaar-db
+    plan: free
+    databaseName: bizniss_bazaar
+    user: bizniss_user

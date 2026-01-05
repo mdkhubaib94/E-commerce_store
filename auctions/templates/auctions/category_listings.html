@@ -1,0 +1,62 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% if listings %}
+  <!-- Category Name -->
+  <h2 class="text-3xl font-bold text-slate-900 mb-8">
+    {{ listings.0.category.name }}
+  </h2>
+
+  <!-- Listings Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for listing in listings %}
+      
+      <a href="{% url 'product' listing.item_no %}" 
+         class="group block rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-lg hover:border-indigo-500 transition overflow-hidden">
+        
+        <!-- Image -->
+        {% if listing.img %}
+          <div class="h-48 w-full overflow-hidden">
+            <img src="{{ listing.img }}" alt="{{ listing.title }}" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          </div>
+        {% else %}
+          <div class="h-48 w-full flex items-center justify-center bg-slate-100 text-slate-400">
+            No Image
+          </div>
+        {% endif %}
+
+        <!-- Info -->
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-slate-900 mb-2 group-hover:text-indigo-600 transition">
+            {{ listing.title }}
+          </h3>
+          <p class="text-slate-600 text-sm mb-4">{{ listing.desc|truncatechars:100 }}</p>
+
+           <!-- Status -->
+        {% if listing.active %}
+          <p class="text-sm font-medium text-emerald-600 mb-2">● ACTIVE</p>
+        {% else %}
+          <p class="text-sm font-medium text-rose-600 mb-2">● CLOSED</p>
+        {% endif %}
+
+        <!-- Current Bid -->
+        {% if listing.cur_bid %}
+          <p class="text-sm text-slate-700 mb-4">
+            <span class="font-semibold">Current Bid:</span> ₹{{ listing.cur_bid }}
+          </p>
+        {% else %}
+          <p class="text-sm text-slate-500 mb-4">No bids yet</p>
+        {% endif %}
+        
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <p class="text-slate-600">No active listings found in this category.</p>
+{% endif %}
+
+{% endblock %}
